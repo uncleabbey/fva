@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import cloudinary
+
+cloudinary.config(cloud_name='kayode',
+    api_key='686575171179491',
+    api_secret='HKfxxVhpd_Gtisn8Rzi5-EokTrU')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'accounts',
-    'knox'
+    'knox',
+    'menu'
 ]
 
 REST_FRAMEWORK = {
