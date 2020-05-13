@@ -45,11 +45,18 @@ INSTALLED_APPS = [
     'rest_framework',
     'accounts',
     'knox',
-    'menu'
+    'menu',
+    'rest_framework_swagger'
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+    ),
 }
 
 MIDDLEWARE = [

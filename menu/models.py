@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from accounts.models import Vendor, Customer
+from accounts.models import Vendor, Customer, User
 
 
 # Create your models here.
@@ -18,8 +18,6 @@ class Menu(models.Model):
   price = models.FloatField(default=0.00)
   quantity = models.IntegerField()
   dateTimeCreated = models.DateTimeField(_("Date Created"), auto_now_add=True)
-  vendorId = models.ForeignKey(Vendor, verbose_name=_("vendor"), on_delete=models.CASCADE)
+  vendorId = models.ForeignKey(User, verbose_name=_("vendor"), on_delete=models.CASCADE)
   isRecurring = models.BooleanField(default=False)
-  frequencyOfReocurrence = models.CharField(_("Frequency"), choices=FREQUENCY, default=None, max_length=1)
-  img_url = models.CharField(_("Image"), max_length=100, blank=True, null=True, default=None)
-  
+  frequencyOfReocurrence = models.CharField(_("Frequency"), choices=FREQUENCY, default=None, max_length=1)  

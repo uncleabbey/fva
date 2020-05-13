@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Menu
-from accounts.models import Vendor, Customer
+from accounts.models import Vendor, Customer, User
 
 
 class VendorSerializer(serializers.ModelSerializer):
@@ -8,8 +8,13 @@ class VendorSerializer(serializers.ModelSerializer):
     model = Vendor
     fields = ['id', 'email', 'phone_number', 'business_name']
 
+class UserSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = User
+    fields = ['id', 'email', 'phone_number', 'isVendor']
+
 class MenuSerializers(serializers.ModelSerializer):
-  vendorId = VendorSerializer(read_only=True)
+  vendorId = UserSerializer(read_only=True)
   class Meta:
     model = Menu
     fields = '__all__'

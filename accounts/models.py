@@ -36,7 +36,7 @@ class VendorManager(BaseUserManager):
     def create_vendor(self, email, phone_number, business_name, password=None):
         if email is None:
             raise TypeError('Users must have an email address.')
-        vendor = Vendor( email=self.normalize_email(email), phone_number=phone_number, business_name=business_name )
+        vendor = Vendor(email=self.normalize_email(email), phone_number=phone_number, business_name=business_name, isVendor=True )
         vendor.set_password(password)
         vendor.save()
         return vendor
@@ -56,6 +56,7 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     phone_number = models.CharField(_("Phone Number"), max_length=15)
+    isVendor = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone_number',]
@@ -82,7 +83,6 @@ class Vendor(User):
 class Customer(User):
     amountOutstanding = models.IntegerField(default=0)
     dateTimeCreated = models.DateField(auto_now_add=True)
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number', 'amountOutstanding',]
 

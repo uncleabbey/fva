@@ -5,10 +5,15 @@ from .serializers import CustomerSerializer, VendorSerializer, LoginSerializer
 from knox.models import AuthToken
 from .models import User
 
-class VendorRegView(views.APIView):
+class VendorRegView(generics.CreateAPIView):
+    
   serializer_class = VendorSerializer
 
   def post(self, request):
+        """
+        create:
+          Create a new vendor.
+        """  
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -20,10 +25,14 @@ class VendorRegView(views.APIView):
           }, status=status.HTTP_201_CREATED)
 
 
-class CustomerRegView(views.APIView):
+class CustomerRegView(generics.CreateAPIView):
   serializer_class = CustomerSerializer
 
   def post(self, request):
+        """
+        create:
+          Create a new vendor.
+        """  
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -34,7 +43,8 @@ class CustomerRegView(views.APIView):
           'token': token
           }, status=status.HTTP_201_CREATED)
 
-class UserLogin(views.APIView):
+class UserLogin(generics.CreateAPIView):
+  
 
     serializer_class = LoginSerializer
 

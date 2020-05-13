@@ -4,6 +4,9 @@ from .models import User, Vendor, Customer
 
 
 class VendorSerializer(serializers.ModelSerializer):
+  email = serializers.EmailField()
+  phone_number = serializers.CharField()
+  business_name = serializers.CharField()
   password = serializers.CharField(
         max_length=128,
         min_length=8,
@@ -12,7 +15,7 @@ class VendorSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Vendor
-    fields = '__all__'
+    fields = ['id', 'email', 'phone_number', 'business_name', 'password']
 
   def create(self, validated_data):
     return Vendor.objects.create_vendor(**validated_data)
@@ -26,7 +29,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Customer
-    fields = '__all__'
+    fields = ['id', 'email', 'phone_number', 'first_name', 'last_name', 'password']
 
   def create(self, validated_data):
     return Customer.objects.create_customer(**validated_data)
