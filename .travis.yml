@@ -8,9 +8,13 @@ env:
 
 install:
     - pip install -r requirements.txt
+    - pip install coveralls
 
 script:
-    - python manage.py test
+    - python manage.py test menu
+    - coverage run --source-menu manage.py test menu
+
+after_success: coveralls
 
 
 
