@@ -1,13 +1,88 @@
 import json
 
-from django.urls import reverse
+from django.urls import reverse, resolve
+
 from knox.models import AuthToken
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from .models import Customer, User, Vendor
 from .serializers import CustomerSerializer, LoginSerializer, VendorSerializer
+from .views import VendorRegView, CustomerRegView, UserLogin
 
+class TestUrlsCase(APITestCase):
+  def test_create_vendor_resolves(self):
+    url = reverse('vendor')
+    self.assertEquals(resolve(url).func.view_class, VendorRegView)
+
+  def test_create_customer_resolves(self):
+    url = reverse('customer')
+    self.assertEquals(resolve(url).func.view_class, CustomerRegView)
+
+  def test_login_user_resolves(self):
+    url = reverse('login')
+    self.assertEquals(resolve(url).func.view_class, UserLogin)
+
+class TestSerializers(APITestCase):
+  def test_vendor_serializer_valid(self):
+    data = {
+      "email": "abbeyunique@gmail.com",
+      "phone_number": "07089524255",
+      "business_name": "Lade Foods",
+      "password": "oluwanisola",
+    }
+    serializer = VendorSerializer(data=data)
+    self.assertTrue(serializer.is_valid())
+    
+  def test_vendor_serializer_invalid(self):
+    data = {}
+    serializer = VendorSerializer(data=data)
+    self.assertFalse(serializer.is_valid())
+    self.assertEquals(len(serializer.errors), 4)
+
+  def test_customer_serializer_valid(self):
+    data = {
+      "email": "customer@gmail.com",
+      "phone_number": "07089524255",
+      "first_name": "Best",
+      "last_name": "Customer",
+      "password": "oluwanisola",
+    }
+    serializer = CustomerSerializer(data=data)
+    self.assertTrue(serializer.is_valid())
+
+
+  def test_customer_serializer_invalid(self):
+    data = {}
+    serializer = CustomerSerializer(data=data)
+    self.assertFalse(serializer.is_valid())
+    self.assertEquals(len(serializer.errors), 3)
+
+  def test_login_serializer_valid(self):
+    user_data = {
+      "email": "dummy@test.com",
+      "phone_number": "0405894578",
+      "password": "oluwanisola",
+      "business_name": "Lade Foods"
+    }
+    Vendor.objects.create_vendor(
+      email=user_data['email'],
+      business_name = user_data['business_name'],
+      password=user_data['password'], 
+      phone_number=user_data['phone_number']
+    )
+    data = {
+      "email": "dummy@test.com",
+      "password": "oluwanisola",
+    }
+    serializer = LoginSerializer()
+    self.assertTrue(serializer.validate(data))
+
+  def test_login_serializer_invalid(self):
+    data = {}
+    serializer = LoginSerializer(data=data)
+    self.assertFalse(serializer.is_valid())
+    self.assertEquals(len(serializer.errors), 2)
 
 class VendorRegTestCase(APITestCase):
   def test_registration(self):
