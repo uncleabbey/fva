@@ -27,7 +27,8 @@ def send_email(user):
         This Link expires in 24 hours after which you'll be asked to reregister
     """
     subject = 'FVA || Set Password'
-    url = 'http://localhost:8000/api/auth/set/password/user/' + \
+    # use url= http://localhost:8000/api/auth/set/password/user/ if you are running locally
+    url = 'https://kayode-foodvendor.herokuapp.com/api/auth/set/password/user/' + \
         str(user.unique_ref)
     body = intro + message + url + warning
     recipient = [user.email]
@@ -47,11 +48,6 @@ class VendorRegView(generics.CreateAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        # send_email(user)
-        # return Response({
-        #     "message": "Vendor created succesfully",
-        #     'vendor': serializer.data
-        # }, status=status.HTTP_201_CREATED)
         try:
             send_email(user)
         except:
@@ -59,7 +55,7 @@ class VendorRegView(generics.CreateAPIView):
             raise
         else:
             return Response({
-                "message": "Vendor created succesfully",
+                "message": "Vendor created succesfully, check your mail to set password",
                 'vendor': serializer.data
             }, status=status.HTTP_201_CREATED)
 
@@ -83,7 +79,7 @@ class CustomerRegView(generics.CreateAPIView):
             raise
         else:
             return Response({
-                "message": "Vendor created succesfully, check your mail to set password",
+                "message": "Customer created succesfully, check your mail to set password",
                 'customer': serializer.data
             }, status=status.HTTP_201_CREATED)
 
@@ -98,7 +94,7 @@ class UserLogin(generics.GenericAPIView):
     @csrf_exempt
     def post(self, request):
         email = request.data['email']
-        user = User.objects.get(email=email)
+        user = get_object_or_404(User, email=email)
         if not user.isConfirmed:
             return Response({
                 'message': 'User has not set password, check your mail for instruction'
@@ -146,6 +142,7 @@ class SetPasswordAPI(generics.UpdateAPIView):
             user.isConfirmed = True
             user.set_password(password)
             user.save()
+            django_login(request, user)
             token = AuthToken.objects.create(user)[1]
             return Response({
                 'message': 'password succesfully set',
