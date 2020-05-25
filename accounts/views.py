@@ -11,6 +11,10 @@ from django.contrib.auth import login as django_login
 EMAIL_HOST_USER = 'smtp.gmail.com'
 
 
+def index(request):
+    return render(request, 'index.html')
+
+
 def send_email(user):
     intro = 'Welcome To Food Vendor Application'
     message = """
