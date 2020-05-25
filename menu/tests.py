@@ -155,6 +155,24 @@ class MenuViewsTestCase(APITestCase):
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(response.data['name'], data['name'])
 
+  def test_menu_detail_update_by_permitted_owner_invalid_data(self):
+    Menu.objects.create(
+      name="Test Food 2", 
+      description="Test Description two", 
+      price= float(2000), 
+      quantity= 4,
+      isRecurring = True,
+      frequencyOfReocurrence = "D",
+      vendorId = self.user
+    )
+    
+    data = {
+      "name": "Amala Delicious",
+      }
+
+    response = self.client.put(reverse('detail', args=['2']), data)
+    self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
   def test_menu_detail_update_by_invalid_user(self):
     Menu.objects.create(
       name="Test Food 2", 

@@ -10,6 +10,14 @@ from .models import Customer, User, Vendor
 from .serializers import CustomerSerializer, LoginSerializer, VendorSerializer
 from .views import VendorRegView, CustomerRegView, UserLogin
 
+# class TestModels(APITestCase):
+#   def test_valid_user_model(self):
+#     try:
+#       User.objects.create_user(email=None, password="Truepossible", phone_number="07098765355")
+#     except ValueError:
+#       msg = "The given email must be set"
+#       self.assertEquals(msg, '')
+
 class TestUrlsCase(APITestCase):
   def test_create_vendor_resolves(self):
     url = reverse('vendor')
