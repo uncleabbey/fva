@@ -5,9 +5,9 @@
 
 This is Venture Gardens Group(VGC) Internship capstone project for backend interns (Python/Django Stack)
 
-## (Documentation)[https://kayode-foodvendor.herokuapp.com/]
+## [Documentation](https://kayode-foodvendor.herokuapp.com/)
 
-Swagger Documentation for the project can be found (Here....)[https://kayode-foodvendor.herokuapp.com/]
+Documentation for the project can be found [Here....](https://kayode-foodvendor.herokuapp.com/docs)
 
 
 #### APP URL: https://kayode-foodvendor.herokuapp.com/docs
@@ -30,10 +30,10 @@ SECRET_KEY=your_secret_key
 
 
 ## How it Works
-Register a new user using (Customer Registeration)[https://kayode-foodvendor.herokuapp.com/api/auth/signup/customer] or (Vendor Registration)
-[https://kayode-foodvendor.herokuapp.com/api/auth/signup/vendor]
+Register a new user using [Customer Registeration](https://kayode-foodvendor.herokuapp.com/api/auth/signup/customer) or [Vendor Registration]
+(https://kayode-foodvendor.herokuapp.com/api/auth/signup/vendor)
 
-or quickly use the following test users for quick (Login)[https://kayode-foodvendor.herokuapp.com/api/auth/login] if you don't want to gpo through registration stress
+or quickly use the following test users for quick [Login](https://kayode-foodvendor.herokuapp.com/api/auth/login) if you don't want to gpo through registration stress
 Vendor email: johndoe@gmail.com
 password: some_strong_password
 
