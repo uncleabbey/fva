@@ -1,5 +1,5 @@
-from django.apps import AppConfig
+from django.apps import AppConfig # pragma: no cover
 
 
-class MenuConfig(AppConfig):
+class MenuConfig(AppConfig): # pragma: no cover
     name = 'menu'

@@ -1,5 +1,7 @@
+import uuid
+
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager 
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -32,11 +34,13 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
+
 class VendorManager(BaseUserManager):
     def create_vendor(self, email, phone_number, business_name, password=None):
         if email is None:
             raise TypeError('Users must have an email address.')
-        vendor = Vendor(email=self.normalize_email(email), phone_number=phone_number, business_name=business_name, isVendor=True )
+        vendor = Vendor(email=self.normalize_email(
+            email), phone_number=phone_number, business_name=business_name, isVendor=True)
         vendor.set_password(password)
         vendor.save()
         return vendor
@@ -46,50 +50,55 @@ class CustomerManager(BaseUserManager):
     def create_customer(self, email, phone_number, first_name, last_name, password=None):
         if email is None:
             raise TypeError('Users must have an email address.')
-        customer = Customer( email=self.normalize_email(email), phone_number=phone_number, first_name=first_name, last_name=last_name )
+        customer = Customer(email=self.normalize_email(
+            email), phone_number=phone_number, first_name=first_name, last_name=last_name)
         customer.set_password(password)
         customer.save()
         return customer
 
 # Create your models here.
+
+
 class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     phone_number = models.CharField(_("Phone Number"), max_length=15)
     isVendor = models.BooleanField(default=False)
+    isConfirmed = models.BooleanField(default=False)
+    unique_ref = models.UUIDField(
+        default=uuid.uuid4, editable=False)
+    create_date = models.DateTimeField(_("create date"), auto_now_add=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['phone_number',]
+    REQUIRED_FIELDS = ['phone_number', ]
 
     objects = UserManager()
 
     def __str__(self):
-            return self.email
-
+        return self.email
 
 
 class Vendor(User):
     business_name = models.CharField(_("Business name"), max_length=50)
     dateTimeCreated = models.DateField(auto_now_add=True)
-    
-    USERNAME_FIELD = 'email'    
-    REQUIRED_FIELDS = ['phone_number', 'business_name',]
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['phone_number', 'business_name', ]
 
     objects = VendorManager()
+
     def __str__(self):
-            return self.email
+        return self.email
 
 
 class Customer(User):
     amountOutstanding = models.IntegerField(default=0)
     dateTimeCreated = models.DateField(auto_now_add=True)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number', 'amountOutstanding',]
-
+    REQUIRED_FIELDS = ['first_name', 'last_name',
+                       'phone_number', 'amountOutstanding', ]
 
     objects = CustomerManager()
 
     def __str__(self):
         return self.email
-
-    
