@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework import views, generics, permissions, status
 from rest_framework.response import Response
 from .serializers import CustomerSerializer, VendorCreateSerializer, LoginSerializer, UserSerializer, SetPasswordSerializer
@@ -7,7 +7,7 @@ from .models import User
 from django.core.mail import EmailMessage, send_mail
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import login as django_login
+from django.contrib.auth import login as django_login, logout as django_logout
 EMAIL_HOST_USER = 'smtp.gmail.com'
 
 
@@ -112,6 +112,19 @@ class UserLogin(generics.GenericAPIView):
             'user': serializer.data,
             'token': token
         }, status=status.HTTP_201_CREATED)
+
+
+class UserLogout(generics.GenericAPIView):
+    """
+    get:
+    Logout Users
+    """
+    serializer_class = LoginSerializer
+
+    def get(self, request):
+        user = request.user
+        django_logout(request)
+        return redirect('/login/?next=/')
 
 
 def cal_delay(expired_date, returned_date):

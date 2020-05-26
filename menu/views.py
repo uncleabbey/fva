@@ -9,7 +9,7 @@ from accounts.models import User
 
 from .models import Menu
 from .permissions import IsOwnerOrReadOnly, IsVendorOrReadOnly
-from .serializers import MenuSerializers, UserSerializer, VendorSerializer
+from .serializers import MenuSerializers, UserSerializer, VendorSerializer, MenuCreateSerializers
 
 
 class MenuCreateAPI(generics.ListCreateAPIView):
@@ -25,7 +25,7 @@ class MenuCreateAPI(generics.ListCreateAPIView):
         JSONParser,
     )
     queryset = Menu.objects.all()
-    serializer_class = MenuSerializers
+    serializer_class = MenuCreateSerializers
     permission_classes = [
         permissions.IsAuthenticated,
         IsVendorOrReadOnly
