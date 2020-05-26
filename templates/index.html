@@ -15,11 +15,21 @@
   </div>
   <div>
     <h2>How it Works</h2> 
+
+    <h4>Registration</h4>
     <p>
-      Register a new user using <a href="/api/auth/signup/customer">Customer Registeration</a> 
-      or <a href="/api/auth/signup/vendor">Vendor Registration</a>   
+      Register a new user using <a href="/api/auth/signup/customer">Customer Registration</a> 
+      or <a href="/api/auth/signup/vendor">Vendor Registration</a>
     </p>
-    or quickly use the following <b>test users</b>  for quick <a href="/api/auth/login">Login</a> if you don't want to gpo through registration stress
+    <p>
+      After doing this, check your mail for instruction on setting your password or you could copy your <b>unique_ref</b> from response of 
+      <br> registration and paste it in the documentation('/auth/set/password/user/{unique_ref}') path. Email is easier
+    </p>
+    <p>
+      after setting the password, copy the token in the response and goto <a href="/swagger/">Swagger documentation</a> 
+      <br> and paste the token inside the Authorize button to get access to protected routes
+    </p>
+    or quickly use the following <b>test users</b>  for quick <a href="/api/auth/login">Login</a> if you don't want to go through registration stress
     <ul>
       <li>
         Vendor email: <b>johndoe@gmail.com</b> 
@@ -33,14 +43,20 @@
         password: <b>some_strong_password</b> 
       </li>
     </ul>
-
+    <p>
+      After logging in successfullly, copy the token in the response and goto <a href="/swagger/">Swagger documentation</a> 
+      <br> and paste the token inside the Authorize button to get access to protected routes
+    </p>
+  </div>
+  <div>
+    If you are using <a href="/docs">CoresApi Docs</a>, Just After setting the password, navigate to basic authentication <br>
+    and input your correct username and password to access protected routes
+  </div>
     <p>
       If you have any question using this app, contact 
       Phone Number: 07069388069 or Email: kayodegabriela@gmail.com
     </p>
-  </div>
-
-  <footer style="text-align:center; position:fixed;bottom:0px;width:100%;">
+  <footer style="text-align:center; position:fixed;bottom:10px;width:100%;">
     <hr>
     Developed with ❤️ by <a href="www.twitter.com/_uncleabbey_">Kayode Gabriel</a>
   </footer>

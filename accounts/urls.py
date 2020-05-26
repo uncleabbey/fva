@@ -1,9 +1,10 @@
 from django.urls import path, include, re_path
-from .views import CustomerRegView, VendorRegView, UserLogin, SetPasswordAPI, index, UserLogout
+from .views import CustomerRegView, VendorRegView, UserLogin, SetPasswordAPI, index
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf.urls import url
+from knox import views as knox_views
 
 
 schema_view = get_schema_view(
@@ -31,5 +32,5 @@ urlpatterns = [
     path(r'api/auth/login', UserLogin.as_view(),  name='login'),
     path('api/auth/set/password/user/<str:unique_ref>',
          SetPasswordAPI.as_view(),  name='password'),
-    path('api/auth/logout', UserLogout.as_view(), name='logout')
+    path('api/auth/logout', knox_views.LogoutView.as_view(), name='knox_logout'),
 ]

@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = os.getenv("DEBUG")
+DEBUG = True
 
 ALLOWED_HOSTS = ['kayode-foodvendor.herokuapp.com', 'locahost']
 
@@ -70,7 +70,7 @@ SWAGGER_SETTINGS = {
     },
 }
 LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGOUT_URL = 'knox_logout'
 ROOT_URLCONF = 'foodvendor.urls'
 
 TEMPLATES = [
@@ -96,17 +96,12 @@ DATABASES = {}
 DATABASES['default'] = dj_database_url.config(
     default=os.getenv("DATABASE_URL"))
 
-if not DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_USE_TLS = True
-    EMAIL_PORT = 587
-    EMAIL_HOST_USER = 'gabkay007@gmail.com'
-    EMAIL_HOST_PASSWORD = 'oluwanisola'
-else:
-    EMAIL_BACKEND = (
-        'django.core.mail.backends.console.EmailBackend'
-    )
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'gabkay007@gmail.com'
+EMAIL_HOST_PASSWORD = 'oluwanisola'
 
 
 AUTH_PASSWORD_VALIDATORS = [

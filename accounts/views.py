@@ -105,26 +105,12 @@ class UserLogin(generics.GenericAPIView):
             }, status=status.HTTP_403_FORBIDDEN)
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        django_login(request, user)
         token = AuthToken.objects.create(user)[1]
         return Response({
             "message": "Login succesfully",
             'user': serializer.data,
             'token': token
         }, status=status.HTTP_201_CREATED)
-
-
-class UserLogout(generics.GenericAPIView):
-    """
-    get:
-    Logout Users
-    """
-    serializer_class = LoginSerializer
-
-    def get(self, request):
-        user = request.user
-        django_logout(request)
-        return redirect('/login/?next=/')
 
 
 def cal_delay(expired_date, returned_date):
@@ -159,7 +145,6 @@ class SetPasswordAPI(generics.UpdateAPIView):
             user.isConfirmed = True
             user.set_password(password)
             user.save()
-            django_login(request, user)
             token = AuthToken.objects.create(user)[1]
             return Response({
                 'message': 'password succesfully set',

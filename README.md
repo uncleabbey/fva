@@ -33,12 +33,22 @@ SECRET_KEY=your_secret_key
 Register a new user using [Customer Registeration](https://kayode-foodvendor.herokuapp.com/api/auth/signup/customer) or [Vendor Registration]
 (https://kayode-foodvendor.herokuapp.com/api/auth/signup/vendor)
 
+ 
+ After logging in successfullly, copy the token in the response and goto [Swagger Documentations](https://kayode-foodvendor.herokuapp.com/swagger) and paste the 
+ token inside the Authorize button to get access to protected routes
+
+
+If you are using [CoresAPI Documentation](https://kayode-foodvendor.herokuapp.com/swagger) Just After setting the password, navigate to basic authentication <br>
+and input your correct username and password to access protected routes
+
 or quickly use the following test users for quick [Login](https://kayode-foodvendor.herokuapp.com/api/auth/login) if you don't want to gpo through registration stress
-Vendor email: johndoe@gmail.com
-password: some_strong_password
 
 
-Customer email: janedoe@gmail.com
-password: some_strong_password
+Vendor email: *johndoe@gmail.com*
+password: *some_strong_password*
 
-If you have any question using this app, contact Phone Number: 07069388069 or Email: kayodegabriela@gmail.com
+
+Customer email: *janedoe@gmail.com*
+password: *some_strong_password*
+
+*If you have any question using this app, contact Phone Number: 07069388069 or Email: kayodegabriela@gmail.com*
