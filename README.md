@@ -34,9 +34,9 @@ Register a new user using [Customer Registeration](https://kayode-foodvendor.her
 (https://kayode-foodvendor.herokuapp.com/api/auth/signup/vendor)
 
  
- After logging in successfullly, copy the token in the response and goto [Swagger Documentations](https://kayode-foodvendor.herokuapp.com/swagger) and paste the 
- token inside the Authorize button to get access to protected routes
-
+ After logging in successfullly, copy the token in the response and goto [Swagger Documentations](https://kayode-foodvendor.herokuapp.com/swagger) 
+and paste the token inside the Authorize button to get access to protected routes. for example `Token 6d377b5837123e984bada0a90dba4e0a54510afcc11db4016466e40913259579`
+It is important to type Token and a space before pasting the header
 
 If you are using [CoresAPI Documentation](https://kayode-foodvendor.herokuapp.com/swagger) Just After setting the password, navigate to basic authentication <br>
 and input your correct username and password to access protected routes

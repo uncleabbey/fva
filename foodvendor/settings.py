@@ -62,11 +62,11 @@ SWAGGER_SETTINGS = {
     'SUPPORTED_SUBMIT_METHODS': ['get', 'post', 'put', 'delete'],
     'JSON_EDITOR': True,
     'SECURITY_DEFINITIONS': {
-        'api_Key': {
+        'api_key': {
             'type': 'apiKey',
             'in': 'header',
-            'name': 'Token Authorization'
-        },
+            'name': 'Authorization'
+        }
     },
 }
 LOGIN_URL = 'login'
